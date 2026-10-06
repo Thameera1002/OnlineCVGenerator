@@ -10,7 +10,7 @@ export function BuyMeCoffee({ className = "" }: { className?: string }) {
       href={`https://www.buymeacoffee.com/${encodeURIComponent(BMC_USERNAME)}`}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-1.5 rounded-md bg-[#FFDD00] px-3 py-1.5 text-sm font-semibold text-black shadow-sm transition hover:brightness-95 ${className}`}
+      className={`inline-flex h-10 items-center gap-2 rounded-full bg-[#FFDD00] px-4 text-sm font-medium text-black transition hover:shadow-elevation-1 hover:brightness-95 ${className}`}
     >
       <span aria-hidden>☕</span>
       <span>Buy me a coffee</span>

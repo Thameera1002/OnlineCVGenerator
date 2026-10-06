@@ -31,7 +31,7 @@ export function AdSlot({ slot, className = "" }: { slot: string | undefined; cla
     if (process.env.NODE_ENV !== "development") return null;
     return (
       <div
-        className={`flex min-h-24 items-center justify-center rounded-xl border-2 border-dashed border-slate-300 text-xs text-slate-400 print:hidden ${className}`}
+        className={`flex min-h-24 items-center justify-center rounded-3xl border-2 border-dashed border-outline-variant text-xs text-on-surface-variant print:hidden ${className}`}
       >
         Ad space (set NEXT_PUBLIC_ADSENSE_CLIENT)
       </div>

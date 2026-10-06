@@ -3,7 +3,7 @@
 import type { ListItem, ListKey } from "@/lib/cv/types";
 import type { RegionConfig } from "@/lib/regions/types";
 import { useCV } from "@/lib/store";
-import { Button, Checkbox, Field } from "../ui";
+import { Button, Checkbox, Field, Icon, IconButton } from "../ui";
 import { listDef } from "./listDefs";
 
 export function ListSection<K extends ListKey>({
@@ -21,33 +21,32 @@ export function ListSection<K extends ListKey>({
   const def = listDef(listKey, region);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {items.map((item, index) => (
-        <div key={item.id} className="rounded-lg border border-slate-200 bg-slate-50/60 p-3">
-          <div className="mb-3 flex items-center justify-between gap-2">
-            <span className="truncate text-xs font-semibold text-slate-700">
-              {index + 1}. {def.itemTitle(item) || "New entry"}
-            </span>
-            <div className="flex shrink-0 items-center">
-              <Button variant="ghost" className="px-2!" aria-label="Move up" disabled={index === 0} onClick={() => moveItem(listKey, item.id, -1)}>
-                ↑
-              </Button>
-              <Button variant="ghost" className="px-2!" aria-label="Move down" disabled={index === items.length - 1} onClick={() => moveItem(listKey, item.id, 1)}>
-                ↓
-              </Button>
-              <Button variant="danger" className="px-2!" onClick={() => removeItem(listKey, item.id)}>
-                Remove
-              </Button>
+        <div key={item.id} className="rounded-2xl bg-surface-container-low p-4 ring-1 ring-outline-variant/60">
+          <div className="mb-4 flex items-center justify-between gap-2">
+            <div className="flex min-w-0 items-center gap-3">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary-container text-xs font-semibold text-on-secondary-container">
+                {index + 1}
+              </span>
+              <span className="truncate text-sm font-medium text-on-surface">
+                {def.itemTitle(item) || <span className="text-on-surface-variant italic">New entry</span>}
+              </span>
+            </div>
+            <div className="-mr-2 flex shrink-0 items-center">
+              <IconButton icon="arrow_upward" label="Move up" disabled={index === 0} onClick={() => moveItem(listKey, item.id, -1)} />
+              <IconButton icon="arrow_downward" label="Move down" disabled={index === items.length - 1} onClick={() => moveItem(listKey, item.id, 1)} />
+              <IconButton icon="delete" label="Remove" className="hover:bg-error/[0.08] hover:text-error" onClick={() => removeItem(listKey, item.id)} />
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {def.fields.map((f) => {
               const value = item[f.key] as unknown;
               const set = (v: string | boolean) =>
                 updateItem(listKey, item.id, { [f.key]: v } as Partial<ListItem<K>>);
               if (f.type === "checkbox") {
                 return (
-                  <div key={f.key} className="flex items-end pb-1.5">
+                  <div key={f.key} className="flex items-center">
                     <Checkbox label={f.label} checked={Boolean(value)} onChange={set} />
                   </div>
                 );
@@ -70,7 +69,15 @@ export function ListSection<K extends ListKey>({
           </div>
         </div>
       ))}
-      <Button onClick={() => addItem(listKey)}>+ {def.addLabel}</Button>
+      {items.length === 0 ? (
+        <div className="flex flex-col items-center gap-2 rounded-2xl border-2 border-dashed border-outline-variant px-4 py-8 text-center text-sm text-on-surface-variant">
+          <Icon name="add" size={28} className="text-outline" />
+          Nothing here yet.
+        </div>
+      ) : null}
+      <Button variant="tonal" icon="add" onClick={() => addItem(listKey)}>
+        {def.addLabel}
+      </Button>
     </div>
   );
 }

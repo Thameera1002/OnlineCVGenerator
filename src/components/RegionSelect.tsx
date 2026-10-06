@@ -2,6 +2,7 @@
 
 import { getRegion, REGIONS, isRegionId } from "@/lib/regions";
 import { useCV } from "@/lib/store";
+import { Icon } from "./ui";
 
 export function RegionSelect() {
   const regionId = useCV((s) => s.regionId);
@@ -13,10 +14,11 @@ export function RegionSelect() {
 
   return (
     <div className="flex flex-col gap-0.5">
-      <label className="flex items-center gap-2 text-sm">
-        <span className="hidden font-medium text-slate-600 sm:inline">Region</span>
+      <label className="relative flex items-center">
+        <span className="sr-only">Target region</span>
+        <Icon name="public" size={20} className="pointer-events-none absolute left-3 text-on-surface-variant" />
         <select
-          className="max-w-[16rem] rounded-md border border-slate-300 bg-white py-1.5 pr-8 pl-2.5 text-sm font-medium text-slate-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none"
+          className="h-10 max-w-[17rem] appearance-none rounded-lg border border-outline bg-surface-container-low pr-9 pl-10 text-sm font-medium text-on-surface transition-colors hover:border-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
           value={regionId}
           onChange={(e) => isRegionId(e.target.value) && setRegion(e.target.value)}
           title={region.covers}
@@ -27,12 +29,15 @@ export function RegionSelect() {
             </option>
           ))}
         </select>
+        <span aria-hidden className="pointer-events-none absolute right-3 text-xs text-on-surface-variant">
+          ▼
+        </span>
       </label>
-      <p className="text-[11px] text-slate-500">
+      <p className="pl-1 text-[11px] text-on-surface-variant">
         {source === "auto" ? (
-          <>📍 Auto-detected from your device</>
+          <>Auto-detected from your device</>
         ) : regionId !== detected ? (
-          <button type="button" className="text-blue-600 hover:underline" onClick={resetToDetectedRegion}>
+          <button type="button" className="font-medium text-primary hover:underline" onClick={resetToDetectedRegion}>
             Use detected: {getRegion(detected).flag} {getRegion(detected).name}
           </button>
         ) : (
