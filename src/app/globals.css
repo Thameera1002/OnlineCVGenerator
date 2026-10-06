@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------- Google Translate widget ---------- */
+/* Hide the top banner Google injects after translating and stop it shifting the page. */
+body {
+  top: 0 !important;
+}
+iframe.skiptranslate,
+.goog-te-banner-frame,
+#goog-gt-tt {
+  display: none !important;
+}
+.gt-widget .goog-te-gadget {
+  font-size: 0 !important; /* hides "Powered by" text; the select keeps its own size */
+  color: transparent;
+}
+.gt-widget .goog-te-gadget > span {
+  display: none;
+}
+.gt-widget .goog-te-combo {
+  margin: 0 !important;
+  font-size: 0.875rem;
+  padding: 0.375rem 0.5rem;
+  border: 1px solid var(--color-slate-300);
+  border-radius: 0.375rem;
+  background: white;
+  color: var(--color-slate-900);
+}
+
+/* ---------- Printing / PDF export: only the CV is printed ---------- */
+@media print {
+  html,
+  body {
+    background: #fff !important;
+  }
+  #cv-print-frame {
+    width: auto !important;
+    height: auto !important;
+  }
+  #cv-print-scale {
+    transform: none !important;
+  }
+}

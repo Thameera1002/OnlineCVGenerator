@@ -1,0 +1,63 @@
+import type { RegionConfig } from "./types";
+
+const biasNote = "Never included on US/Canadian resumes — anti-discrimination law.";
+
+export const northAmerica: RegionConfig = {
+  id: "na",
+  name: "USA & Canada",
+  flag: "🇺🇸",
+  covers: "United States, Canada",
+  docName: "Resume",
+  paper: "Letter",
+  dateFormat: "MMM YYYY",
+  maxPages: 2,
+  idealPages: 1,
+  languageScale: "descriptive",
+  fields: {
+    photo: "hidden",
+    address: "hidden",
+    dateOfBirth: "hidden",
+    gender: "hidden",
+    maritalStatus: "hidden",
+    nationality: "hidden",
+    religion: "hidden",
+    nicNumber: "hidden",
+    passportNumber: "hidden",
+    visaStatus: "hidden",
+    workAuthorization: "optional",
+    drivingLicense: "hidden",
+    noticePeriod: "hidden",
+  },
+  fieldNotes: {
+    photo: biasNote,
+    dateOfBirth: biasNote,
+    gender: biasNote,
+    maritalStatus: biasNote,
+    religion: biasNote,
+    nationality: "Use work authorization instead (e.g. \"US Citizen\", \"H-1B\").",
+    address: "City and state/province only.",
+  },
+  sections: [
+    "summary",
+    "experience",
+    "skills",
+    "education",
+    "certifications",
+    "projects",
+    "languages",
+    "personalDetails",
+  ],
+  sectionLabels: {
+    summary: "Summary",
+    skills: "Skills",
+    personalDetails: "Additional Information",
+  },
+  references: { mode: "none" },
+  defaultTemplate: "classic",
+  tips: [
+    "One page if you have under ~10 years of experience; two pages maximum.",
+    "Start bullets with action verbs and quantify results (%, $, time saved).",
+    "Keep the layout simple so Applicant Tracking Systems (ATS) can read it.",
+    "Don't add references — they are requested later.",
+  ],
+};

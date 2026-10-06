@@ -1,0 +1,104 @@
+/* CV document styles. Units are physical (mm/pt) so screen preview == printed PDF. */
+
+.cv {
+  --cv-accent: #1f4e79;
+  --cv-text: #1a1a1a;
+  --cv-muted: #555;
+  --cv-rule: #c9d3dd;
+  --cv-pad-y: 12mm;
+  --cv-pad-x: 14mm;
+  box-sizing: border-box;
+  background: #fff;
+  color: var(--cv-text);
+  font-family: var(--font-geist-sans), "Helvetica Neue", Arial, "Noto Sans Sinhala", "Noto Sans Tamil", sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  padding: var(--cv-pad-y) var(--cv-pad-x);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+.cv *,
+.cv *::before,
+.cv *::after {
+  box-sizing: border-box;
+}
+.cv.cv-a4 { width: 210mm; min-height: 297mm; }
+.cv.cv-letter { width: 215.9mm; min-height: 279.4mm; }
+
+.cv h1, .cv h2, .cv p, .cv ul, .cv dl, .cv dd { margin: 0; }
+
+/* Header */
+.cv-header { display: flex; gap: 6mm; align-items: center; margin-bottom: 5mm; }
+.cv-photo { width: 30mm; height: 36mm; object-fit: cover; border-radius: 2mm; flex: none; }
+.cv-header-text { flex: 1; min-width: 0; }
+.cv-name { font-size: 22pt; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
+.cv-headline { font-size: 12pt; color: var(--cv-accent); margin-top: 1mm; }
+.cv-contact { display: flex; flex-wrap: wrap; gap: 0 4mm; margin-top: 2mm; font-size: 9pt; color: var(--cv-muted); }
+
+/* Sections */
+.cv-section { margin-top: 4.5mm; }
+.cv-h2 {
+  font-size: 10.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--cv-accent);
+  border-bottom: 0.4mm solid var(--cv-rule);
+  padding-bottom: 1mm;
+  margin-bottom: 2mm;
+  break-after: avoid;
+}
+.cv-text { white-space: pre-line; }
+.cv-entry { margin-bottom: 3mm; break-inside: avoid; }
+.cv-entry:last-child { margin-bottom: 0; }
+.cv-entry-head { display: flex; justify-content: space-between; gap: 4mm; }
+.cv-entry-title { font-weight: 700; }
+.cv-entry-sub { color: var(--cv-muted); }
+.cv-entry-date { white-space: nowrap; color: var(--cv-muted); font-size: 9pt; padding-top: 0.3mm; }
+.cv-bullets { list-style: disc; padding-left: 4.5mm; margin-top: 1mm; }
+.cv-bullets li { margin-bottom: 0.6mm; }
+.cv-plain-list { list-style: none; padding: 0; }
+.cv-plain-list li { margin-bottom: 1mm; }
+
+.cv-details { display: grid; grid-template-columns: 1fr; gap: 0.8mm; }
+.cv-details > div { display: grid; grid-template-columns: 52mm 1fr; column-gap: 3mm; }
+.cv-details dt { color: var(--cv-muted); }
+
+.cv-referees { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 8mm; break-inside: avoid; }
+
+.cv-declaration { break-inside: avoid; }
+.cv-sign-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 6mm; }
+.cv-sign { text-align: center; min-width: 50mm; }
+.cv-sign-line { border-bottom: 0.3mm dotted var(--cv-text); height: 10mm; margin-bottom: 1mm; }
+
+/* Classic: centered, monochrome, maximally ATS-friendly */
+.cv-classic { --cv-accent: #222; }
+.cv-classic .cv-header { text-align: left; border-bottom: 0.6mm solid #222; padding-bottom: 4mm; }
+
+/* Modern: coloured header band + two columns */
+.cv-modern { padding: 0; }
+.cv-modern .cv-header {
+  background: var(--cv-accent);
+  color: #fff;
+  padding: 9mm var(--cv-pad-x);
+  margin-bottom: 0;
+}
+.cv-modern .cv-headline { color: #dbe8f5; }
+.cv-modern .cv-contact { color: #e8eff7; }
+.cv-modern .cv-photo { border: 0.8mm solid #fff; }
+.cv-modern .cv-columns {
+  display: grid;
+  grid-template-columns: 1fr 62mm;
+  gap: 7mm;
+  padding: 2mm var(--cv-pad-x) var(--cv-pad-y);
+}
+.cv-modern .cv-side .cv-details > div { grid-template-columns: 1fr; }
+.cv-modern .cv-side .cv-details dt { font-size: 8.5pt; }
+.cv-modern .cv-side .cv-details > div + div { margin-top: 1mm; }
+.cv-modern .cv-referees { grid-template-columns: 1fr; }
+
+@media print {
+  .cv { width: auto !important; min-height: 0 !important; padding: 0; }
+  .cv-modern .cv-columns { padding: 2mm 0 0; }
+  .cv-modern .cv-header { padding: 7mm 6mm; border-radius: 1.5mm; }
+}
