@@ -2,7 +2,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Button } from "../ui";
+import { Button, Icon } from "../ui";
 
 const W = 300;
 const H = 360;
@@ -47,20 +47,20 @@ export function PhotoInput({
 
   return (
     <div className="flex items-center gap-4">
-      <div className="flex h-24 w-20 shrink-0 items-center justify-center overflow-hidden rounded-md bg-slate-100 text-[10px] text-slate-400 ring-1 ring-slate-200">
-        {value ? <img src={value} alt="Your photo" className="h-full w-full object-cover" /> : "No photo"}
+      <div className="flex h-24 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-container-highest text-on-surface-variant">
+        {value ? <img src={value} alt="Your photo" className="h-full w-full object-cover" /> : <Icon name="photo_camera" size={28} />}
       </div>
       <div className="space-y-2">
-        <div className="flex gap-2">
-          <Button onClick={() => inputRef.current?.click()}>{value ? "Change photo" : "Upload photo"}</Button>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="tonal" icon="photo_camera" onClick={() => inputRef.current?.click()}>{value ? "Change photo" : "Upload photo"}</Button>
           {value ? (
             <Button variant="danger" onClick={() => onChange("")}>
               Remove
             </Button>
           ) : null}
         </div>
-        {note ? <p className="text-[11px] text-slate-500">{note}</p> : null}
-        {error ? <p className="text-[11px] text-red-600">{error}</p> : null}
+        {note ? <p className="text-xs text-on-surface-variant">{note}</p> : null}
+        {error ? <p className="text-xs text-error">{error}</p> : null}
         <input
           ref={inputRef}
           type="file"

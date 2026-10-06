@@ -37,6 +37,8 @@ export function CVPreview({
     const inner = innerRef.current;
     if (!outer || !inner) return;
     const ro = new ResizeObserver(() => {
+      // Skip while the preview tab is hidden (display:none) so the page count stays valid.
+      if (!outer.clientWidth) return;
       setScale(Math.min(1, outer.clientWidth / (paper.w * MM)));
       setHeight(inner.offsetHeight);
     });
@@ -57,7 +59,7 @@ export function CVPreview({
       >
         <div
           id="cv-print-scale"
-          className="absolute top-0 left-0 origin-top-left shadow-xl ring-1 ring-slate-200 print:static print:shadow-none print:ring-0"
+          className="absolute top-0 left-0 origin-top-left shadow-elevation-3 print:static print:shadow-none print:ring-0"
           style={{ transform: `scale(${scale})` }}
         >
           {/* translate="no": Google Translate must not alter the user's own CV text */}
@@ -68,10 +70,10 @@ export function CVPreview({
             <div
               key={i}
               aria-hidden
-              className="pointer-events-none absolute right-0 left-0 border-t-2 border-dashed border-rose-300 print:hidden"
+              className="pointer-events-none absolute right-0 left-0 border-t-2 border-dashed border-error/60 print:hidden"
               style={{ top: (MARGIN_Y_MM * MM + (i + 1) * pageContentPx) }}
             >
-              <span className="absolute -top-2.5 right-2 rounded bg-rose-100 px-1.5 text-[11px] font-medium text-rose-700">
+              <span className="absolute -top-2.5 right-2 rounded-full bg-error px-2 text-[11px] leading-5 font-medium text-on-error">
                 Page {i + 2}
               </span>
             </div>
